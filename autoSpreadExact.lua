@@ -29,7 +29,7 @@ local function checkChild(slot, crop)
         if crop.name == 'air' then
             action.placeCropStick(2)
 
-        elseif scanner.isWeed(crop, 'storage') then
+        elseif isWeed(crop, 'storage') then
             action.deweed()
             action.placeCropStick()
 
@@ -72,10 +72,23 @@ end
 
 local function checkParent(slot, crop)
     if crop.isCrop and crop.name ~= 'air' and crop.name ~= 'emptyCrop' then
-        if scanner.isWeed(crop, 'working') then
+        if isWeed(crop, 'working') then
             action.deweed()
             database.updateFarm(slot, {isCrop=true, name='emptyCrop'})
         end
+    end
+end
+
+local function isWeed(crop, farm)
+    if farm == 'working' then
+        return crop.name == 'weed' or
+        crop.name == 'Grass' or
+        (crop.name == 'venomilia' and crop.gr > 7)
+
+    elseif farm == 'storage' then
+        return crop.name == 'weed' or
+        crop.name == 'Grass' or
+        (crop.name == 'venomilia' and crop.gr > 7)
     end
 end
 
