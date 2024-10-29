@@ -9,20 +9,6 @@ local targetCrop
 
 -- =================== MINOR FUNCTIONS ======================
 
-local function isWeed(crop, farm)
-    if farm == 'working' then
-        return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        (crop.name == 'venomilia' and crop.gr > 7)
-
-    elseif farm == 'storage' then
-        return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        (crop.name == 'venomilia' and crop.gr > 7)
-    end
-end
-
-
 local function findEmpty()
     local farm = database.getFarm()
 
@@ -43,7 +29,7 @@ local function checkChild(slot, crop)
         if crop.name == 'air' then
             action.placeCropStick(2)
 
-        elseif isWeed(crop, 'storage') then
+        elseif crop.name == 'weed' or crop.name == 'Grass' then
             action.deweed()
             action.placeCropStick()
 
@@ -86,7 +72,7 @@ end
 
 local function checkParent(slot, crop)
     if crop.isCrop and crop.name ~= 'air' and crop.name ~= 'emptyCrop' then
-        if isWeed(crop, 'working') then
+        if crop.name == 'weed' or crop.name == 'Grass' then
             action.deweed()
             database.updateFarm(slot, {isCrop=true, name='emptyCrop'})
         end
