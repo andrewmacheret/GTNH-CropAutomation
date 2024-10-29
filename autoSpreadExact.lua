@@ -35,7 +35,7 @@ local function checkChild(slot, crop)
 
         elseif crop.name == targetCrop then
             -- local stat = crop.gr + crop.ga - crop.re
-            local statMatches = crop.gr == 23 and crop.ga == 31 and crop.re == 10
+            local statMatches = crop.gr == 23 and crop.ga == 31
 
             -- Make sure no parent on the working farm is empty
             if statMatches and findEmpty() then
