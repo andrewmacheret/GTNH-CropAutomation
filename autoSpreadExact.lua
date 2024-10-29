@@ -9,6 +9,20 @@ local targetCrop
 
 -- =================== MINOR FUNCTIONS ======================
 
+local function isWeed(crop, farm)
+    if farm == 'working' then
+        return crop.name == 'weed' or
+        crop.name == 'Grass' or
+        (crop.name == 'venomilia' and crop.gr > 7)
+
+    elseif farm == 'storage' then
+        return crop.name == 'weed' or
+        crop.name == 'Grass' or
+        (crop.name == 'venomilia' and crop.gr > 7)
+    end
+end
+
+
 local function findEmpty()
     local farm = database.getFarm()
 
@@ -79,18 +93,7 @@ local function checkParent(slot, crop)
     end
 end
 
-local function isWeed(crop, farm)
-    if farm == 'working' then
-        return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        (crop.name == 'venomilia' and crop.gr > 7)
 
-    elseif farm == 'storage' then
-        return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        (crop.name == 'venomilia' and crop.gr > 7)
-    end
-end
 
 -- ====================== THE LOOP ======================
 
